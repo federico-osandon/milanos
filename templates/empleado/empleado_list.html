@@ -1,0 +1,39 @@
+{% extends 'base/base.html' %} 
+{% block content %}
+    <div class="container">
+        <h1>Lista de Empleados</h1>
+    </div>
+    <table class="table table-bordered center">
+        <thead>
+            <tr>
+                <th>Nro. de Empleado</th>
+                <th>Empleado</th>
+                <th>Fecha de Nac.</th>
+                <th>Telefono</th>
+                
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if object_list %} 
+                {% for empleado in object_list %}
+                    <tr>
+                        <td>{{ empleado.id }}</td>
+                        <td>{{ empleado.persona.nombres }} {{ empleado.persona.apellidos }}</td>
+                        <td>{{ empleado.persona.fecha_nacimiento }}</td>
+                        <td>{{ empleado.persona.telefono }}</td>
+                        
+                        <td>
+                            <a class="btn btn-outline-info" href="/venta/pago/{{ empleado.id }}">Sueldo</a>
+                            <a class="btn btn-primary" href="/persona/empleadoeditar/{{ empleado.id }}">Editar</a>
+                            <a class="btn btn-danger" href="/persona/eliminarempleado/{{ empleado.id }}">Eliminar</a>
+                        </td>
+                    </tr>
+                {% endfor %} 
+            {% else %}
+            <h1>No hay Registro de Solicitudes</h1>
+            {% endif %}
+        </tbody>
+    </table>
+
+{% endblock content %}

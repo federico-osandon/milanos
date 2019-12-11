@@ -1,0 +1,9 @@
+{% extends 'base/base.html' %} 
+{% block content %}    
+    <div class="container">
+        <h1>Ventas del Día</h1>
+    </div>
+    {% include './tabla_lista.html' %}   
+    <a class="btn btn-dark" href="/persona/buscar">Buscar Cliente</a>
+    <a class="btn btn-dark" href="/persona/crearcliente">Registrar Cliente</a>
+{% endblock content %}

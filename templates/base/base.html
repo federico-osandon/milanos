@@ -1,0 +1,107 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block extrahead %} 
+    {% endblock %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        {% block title %} 
+            Document 
+        {% endblock %}
+    </title>
+</head>
+
+<body>
+    <div class="container">
+        {% block navbar %}
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="#">LOGO</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Empleado</a>
+                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 41px, 0px);">
+                            <a class="dropdown-item" href="/persona/crearempleado">Registrar Empleados</a>
+                            <a class="dropdown-item" href="/persona/listarempleado">Listar Empleados</a>
+                            <a class="dropdown-item" href="/venta/sueldo">Registrar Sueldo</a>                            
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Clientes</a>
+                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 41px, 0px);">
+                            <a class="dropdown-item" href="/persona/crearcliente">Registrar Clientes</a>
+                            <a class="dropdown-item" href="/persona/listarcliente">Listar Clientes</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Colores</a>
+                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 41px, 0px);">
+                            <a class="dropdown-item" href="#">Registrar Colores</a>
+                            <a class="dropdown-item" href="#">Listar Colores</a>
+                            <a class="dropdown-item" href="#">Registrar Tinturas</a>
+                            <a class="dropdown-item" href="#e">Listar tinturas</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Cortes</a>
+                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 41px, 0px);">
+                            <a class="dropdown-item" href="/listarcorte">Listar Cortes</a>
+                            <a class="dropdown-item" href="/crearcorte">Registrar Cortes</a>
+                            <a class="dropdown-item" href="#">Caja</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Manos</a>
+                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 41px, 0px);">
+                            <a class="dropdown-item" href="/listarcorte">Listar Cortes</a>
+                            <a class="dropdown-item" href="/crearcorte">Registrar Cortes</a>                            
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Caja</a>
+                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 41px, 0px);">
+                            <a class="dropdown-item" href="/venta/listar1">Registrar Venta</a>
+                            
+                            <a class="dropdown-item" href="#">#</a>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.facebook.com/milanosevolution/">Milano´s Evolution</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Opciones</a>
+                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 41px, 0px);">
+                            <a class="dropdown-item" href="{% url 'logout' %}">Salir</a>
+
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+        {% endblock %} 
+        {% block content %}
+            <h4>Bloque de contenido</h4>
+        {% endblock %} 
+        {% block footer %}
+           
+        {% endblock %}
+    </div>
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    {% block extrajs %} 
+    {% endblock %}
+</body>
+
+</html>

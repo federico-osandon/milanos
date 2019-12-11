@@ -1,0 +1,49 @@
+{% extends 'base/base.html' %}
+{% block content %}
+
+    <br><table class="table table-bordered center">    
+        {% if object_list %} 
+        <thead>
+            <tr>                
+                <th>Peluquero</th>
+                <th>Tipo</th>
+                <th>Pago Comision</th>
+                <th>Sueldo Basico</th>
+                <th>Adelanto</th>
+                <th>Porcentaje</th>               
+                <th>Accion</th>               
+            </tr>
+        </thead>
+        <tbody>
+            {% for pago in object_list %}
+                <tr>                    
+                    <td>{{ pago.peluquero }}</td>
+                    <td>{{ pago.tipo_empleado }}</td>
+                    <td>{{ pago.pago_semanal }}</td>
+                    <td>{{ pago.sueldo_basico }}</td>
+                    <td>{{ pago.adelanto }}</td>                       
+                    <td>{{ pago.porcentaje }}</td>
+                    <td>
+                        <a class="btn btn-success" href="/venta/pagar/{{ pago.id }}">Pagar</a><br> 
+                                               
+                        <br><div class="card" style="width: 10rem;">
+                            <div class="card-body">
+                                <form action="/venta/adelantoing/{{ pago.id }}/" name="adelanto" method="get" class="form-group">
+                                    
+                                    <label for="">Adelanto:</label>
+                                    <input type="number" class="form-control" name="ade" requerid ><br>
+                                    <button type="submit"><i class="btn btn-dark">Adelanto</i></button>
+                                </form>
+                            </div>
+                        </div>
+                                                
+                    </td>
+                </tr>
+            {% endfor %} 
+        {% else %}
+            <h1>No hay Registros</h1>
+        {% endif %}
+    </tbody>    
+</table>
+
+{% endblock content %}

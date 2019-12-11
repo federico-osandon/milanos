@@ -1,0 +1,33 @@
+Filtrar por fechas en Django
+Publicado el mayo 25, 2013 por RootWeiller
+Un tema común, ¿como filtrar por fechas?, usando Django se pueden hacer estas consultas de manera muy simple, por ejemplo si queremos buscar por un rango de fechas que nos de el usuario hacemos lo siguiente
+
+Model.objects.filter(fecha__range=(f_inicial, f_cierre)
+
+Donde f_inicial y f_cierre corresponden a los input text que defines en el formulario de búsqueda.
+
+Ahora si lo que quieres es filtrar por día, tomado del server puedes hacer lo siguiente
+
+ 
+
+hoy = date.today()
+
+Model.objects.filter(fecha = hoy)
+
+ 
+
+Lógicamente debes importar la librería datetime de python con el comando from datetime import *
+
+Para hacer una búsqueda por mes y año, usando la librería datetime, podrías hacer lo siguiente
+
+mes = datetime.now().month
+
+Model.objects.filter(fecha__month = mes)
+
+year = datetime.now().year
+
+Model.objects.filter(fecha__year = year)
+
+ 
+
+Espero que les sirvan para sus búsquedas en Django, saludos

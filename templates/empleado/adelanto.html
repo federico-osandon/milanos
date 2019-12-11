@@ -1,0 +1,13 @@
+{% extends 'base/base.html' %}
+{% block content %}
+<br><div class="card" style="width: 19rem;">
+<div class="card-body">
+    <form action="" method="post" class="form-group">
+        {% csrf_token %}
+        <label for="adelanto">Adelanto:</label>
+        <input type="number" class="form-control" requerid ><br>
+        <button type="submit"><i class="btn btn-primary">Enviar</i></button>
+    </form>
+</div>
+</div>
+{% endblock content %}

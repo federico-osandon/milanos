@@ -1,0 +1,6 @@
+
+     <form type="GET" class="form-group">
+        {% csrf_token %} 
+	    {{ filtro.form.as_p }}
+        <button type="submit"><i class="btn btn-primary">Buscar</i></button>
+    </form>

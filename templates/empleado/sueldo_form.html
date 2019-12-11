@@ -1,0 +1,8 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <form class="form-group"  method="POST"  >
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit"><i class="btn btn-primary">Enviar</i></button>
+    </form>
+{% endblock content %}

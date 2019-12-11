@@ -1,0 +1,60 @@
+{% extends 'base/base.html' %}
+{% block content %}
+<div class="container center">
+<div class="container">
+    <h1>Formulario de Clientes</h1>
+</div>
+
+<form class="form-horizontal " action="" method="post">
+    {% csrf_token %}
+    
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="form-group">
+                <label for="{{ form2.nombres.name }}">{{form2.nombres.label}}</label> {{form2.nombres}}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="form-group">
+                <label for="{{ form2.nombres.apellidos }}">{{ form2.apellidos.label}}</label> {{ form2.apellidos }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="form-group">
+                <label for="{{ form.fecha_nacimiento.name }}">{{ form2.fecha_nacimiento.label }}</label> {{ form2.fecha_nacimiento }}
+            </div>
+        </div>
+    </div>    
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="form-group">
+                <label for="{{ form2.email.name }}">{{ form2.email.label }}</label> {{ form2.email }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="form-group">
+                <label for="{{ form2.telefono.name }}">{{ form2.telefono.label }}</label> {{ form2.telefono }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="form-group">
+                <label for="{{ form.vip.name }}">{{ form.vip.label }}</label> {{ form.vip }}
+            </div>
+        </div>
+    </div>
+
+
+
+    <button type="submit">Guardar</button>
+</form>
+</div>
+{% endblock content %}

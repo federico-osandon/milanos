@@ -1,0 +1,40 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <div class="container">
+        <h1>Lista de Clientes</h1>
+    </div>
+    <table class="table table-bordered center">
+        <thead>
+            <tr>
+                <th>Nro. de Cliente</th>
+                <th>Cliente</th>
+                <th>Fecha de Nac.</th>
+                <th>Teléfono</th>
+                <th>VIP</th>
+                
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if object_list %}
+            {% for cliente in object_list %}
+            <tr>
+                <td>{{ cliente.persona.id }}</td>
+                <td>{{ cliente.persona.nombres }} {{ cliente.persona.apellidos }}</td>
+                <td>{{ cliente.persona.fecha_nacimiento }}</td>
+                <td>{{ cliente.persona.telefono }}</td>
+                <td>{{ cliente.vip }}</td>
+                
+                <td>
+                    <a class="btn btn-primary" href="/persona/clienteupdate/{{ cliente.id }}">Editar</a>
+                    
+                </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <h1>No hay Registro de Solicitudes</h1>
+            {% endif %}
+        </tbody>
+    </table>
+    
+{% endblock content %}

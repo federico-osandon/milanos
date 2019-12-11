@@ -1,0 +1,38 @@
+   <table class="table table-bordered center">    
+        {% if object_list %} 
+        <thead>
+            <tr>
+                <th>Cliente</th>
+                <th>Peluquero</th>
+                <th>Corte</th>
+                <th>Tintura</th>
+                <th>Fecha</th>
+                <th>Tipo de Pago</th>
+                <th>Total</th>
+                <th>Accion</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for venta in object_list %}
+                <tr>
+                    <td>{{ venta.cliente }}</td>
+                    <td>{{ venta.peluquero }}</td>
+                    <td>{{ venta.corte }}</td>
+                    <td>{{ venta.tintura }}</td>
+                    <td>{{ venta.fecha }}</td>
+                    <td>{{ venta.tipoPago }}</td>                       
+                    <td>{{ venta.total }}</td>
+                    <td><a class="btn btn-dark" href="/venta/editar/{{venta.id}}/">Modificar</a></td>
+                    
+                    
+                </tr>
+               
+               
+            {% endfor %} 
+        {% else %}
+            <h1>No hay Registros</h1>
+        {% endif %}
+    </tbody>
+    
+</table>

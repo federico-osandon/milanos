@@ -1,0 +1,51 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <div>
+        <h1>Buscar Cliente</h1>
+    </div>
+   {% include './filtro_pago.html' %}
+
+   
+       
+            {% if filtro.qs %} 
+             <table class="table table-bordered center">
+        <thead>
+            <tr>
+                <th>Nro. de Cliente</th>
+                <th>Cliente</th>
+                <th>Fecha de Nac.</th>
+                <th>Telefono</th>
+                <th>VIP</th>
+                
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente in filtro.qs %}
+            <tr>
+                <td>{{ cliente.persona.id }}</td>
+                <td>{{ cliente.persona.nombres }} {{ cliente.persona.apellidos }}</td>
+                <td>{{ cliente.persona.fecha_nacimiento }}</td>
+                <td>{{ cliente.persona.telefono }}</td>
+                <td>{{ cliente.vip }}</td>
+                
+                <td>
+                    <a class="btn btn-primary" href="/venta/crear/{{cliente.id}} ">Venta</a>
+                    <a class="btn btn-info" href="/venta/historial/{{cliente.id}} ">Historial</a>
+                    
+                </td>
+            </tr>
+            
+            
+            {% endfor %}
+             </tbody>
+    </table>
+            {% else %}
+                <h1>No hay Registros</h1>
+            {% endif %}
+       
+    
+{% endblock content %}
+
+
+
