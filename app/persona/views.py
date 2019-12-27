@@ -30,7 +30,7 @@ class EmpleadoCrear(CreateView):
     template_name = 'empleado/empleado_form.html'
     form_class = EmpleadoForm
     second_form_class = PersonaForm
-    success_url = reverse_lazy('empleado_listar')
+    success_url = reverse_lazy('sueldo_crear')
 
     def get_context_data(self, **kwargs):
         context = super(EmpleadoCrear, self).get_context_data(**kwargs)

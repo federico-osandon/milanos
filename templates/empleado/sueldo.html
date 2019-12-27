@@ -23,9 +23,7 @@
                     <td>{{ pago.sueldo_basico }}</td>
                     <td>{{ pago.adelanto }}</td>                       
                     <td>{{ pago.porcentaje }}</td>
-                    <td>
-                        <a class="btn btn-success" href="/venta/pagar/{{ pago.id }}">Pagar</a><br> 
-                                               
+                    <td>                                               
                         <br><div class="card" style="width: 10rem;">
                             <div class="card-body">
                                 <form action="/venta/adelantoing/{{ pago.id }}/" name="adelanto" method="get" class="form-group">
@@ -36,7 +34,9 @@
                                 </form>
                             </div>
                         </div>
-                                                
+                        <br>
+                        <a class="btn btn-success" href="/venta/sueldomodificar/{{ pago.id }}">Modificar</a> 
+                        <a class="btn btn-success" href="/venta/pagar/{{ pago.id }}">Pagar</a>                                                 
                     </td>
                 </tr>
             {% endfor %} 
