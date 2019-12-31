@@ -1,5 +1,5 @@
 from django import forms
-from app.salonCorte.models import Corte, Color, Tintura
+from app.salonCorte.models import Corte, Color, Tintura, Mano
 
 
 
@@ -41,3 +41,49 @@ class CorteForm(forms.ModelForm):
        #          'precio':'Precio',
        #      }
 
+
+class TinturaForm(forms.ModelForm):
+
+    class Meta:
+        model = Tintura
+        fields = [
+            'nombre',
+            'codigo',
+            'marca',
+            'gramo',
+            'precio',
+        ]
+        labels = {
+            'nombre': 'Nombre',
+            'codigo': 'Codigo',
+            'marca': 'Marca',
+            'gramo': 'Gramos',
+            'precio': 'Precio',
+        }
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
+            'codigo': forms.TextInput(attrs={'class': 'form-control'}),
+            'marca': forms.TextInput(attrs={'class': 'form-control'}),
+            'gramo': forms.NumberInput(attrs={'class': 'form-control'}),
+            'precio': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
+
+class ManoForm(forms.ModelForm):
+    class Meta:
+        model = Mano
+        fields = [
+            'nombre',
+            'concepto',
+            'precio',
+        ]
+        labels = {
+            'nombre': 'Nombre',
+            'concepto': 'Concepto',
+            'precio': 'Precio',
+        }
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
+            'concepto': forms.TextInput(attrs={'class': 'form-control'}),
+            'precio': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
+    

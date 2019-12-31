@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <div>
+        <h1>Lista de Colores</h1>
+    </div>
+    <table class="table table-bordered center">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Concepto</th>
+                <th>Precio</th>                               
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if object_list %}
+            {% for mano in object_list %}
+            <tr>
+                <td>{{ mano.id }}</td>
+                <td>{{ mano.nombre }}</td>
+                <td>{{ mano.concepto }}</td>
+                
+                <td>{{ mano.precio }}</td>
+                
+                <td>
+                    <a class="btn btn-primary" href="/salon/manomodificar/{{ mano.id }}">Editar</a>
+                    <a class="btn btn-danger" href="/salon/manoeliminar/{{ mano.id }}">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <h1>No hay Registro de Solicitudes</h1>
+            {% endif %}
+        </tbody>
+    </table>
+    
+{% endblock content %}

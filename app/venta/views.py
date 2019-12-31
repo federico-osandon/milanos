@@ -225,7 +225,11 @@ class PagoList(ListView):
         return queryset.filter(peluquero=pk)
 
     
-
+class SueldoUpdate(UpdateView):
+    model = Sueldo
+    form_class = SueldoForm
+    template_name = 'empleado/sueldo_form.html'
+    success_url = reverse_lazy('empleado_listar')
 
 
 class SueldoCreate(CreateView):
@@ -234,12 +238,10 @@ class SueldoCreate(CreateView):
     template_name = 'empleado/sueldo_form.html'
     success_url = reverse_lazy('empleado_listar')
 
+
+
     
-class SueldoUpdate(UpdateView):
-    model = Sueldo
-    form_class = SueldoForm
-    template_name = 'empleado/sueldo_form.html'
-    success_url = reverse_lazy('empleado_listar')
+     
 
 def SueldoPagar(request, pk):    
     sueldo = Sueldo.objects.get(id=pk)   

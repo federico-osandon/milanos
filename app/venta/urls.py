@@ -1,5 +1,5 @@
 from django.urls import path, include
-from app.venta.views import VentaList, VentaCrear, VentaListar, HistorialCliente, PagoList, VentaUpdate, VentaDelete, SueldoCreate, SueldoPagar, AdelantoIng, UpdateView, SueldoUpdate
+from app.venta.views import VentaList, VentaCrear, VentaListar, HistorialCliente, PagoList, VentaUpdate, VentaDelete, SueldoCreate, SueldoPagar, AdelantoIng, SueldoUpdate
 from . import views
 from django.contrib.auth.decorators import login_required
 from django.conf.urls import url
