@@ -1,5 +1,5 @@
 from django import forms
-from app.salonCorte.models import Corte, Color, Tintura, Mano
+from app.salonCorte.models import Corte, Color, Tintura, Mano, Tratamiento
 
 
 
@@ -18,7 +18,7 @@ class CorteForm(forms.ModelForm):
             'precio': 'Precio',
         }
         widgets = {
-            'nombre': forms.Select( attrs={'class': 'form-control'}),
+            'nombre': forms.TextInput( attrs={'class': 'form-control'}),
             'decripcion': forms.TextInput(attrs={'class': 'form-control'}),
             'precio': forms.NumberInput(attrs={'class': 'form-control'}),
         }
@@ -50,21 +50,21 @@ class TinturaForm(forms.ModelForm):
             'nombre',
             'codigo',
             'marca',
-            'gramo',
+            #'gramo',
             'precio',
         ]
         labels = {
             'nombre': 'Nombre',
             'codigo': 'Codigo',
             'marca': 'Marca',
-            'gramo': 'Gramos',
-            'precio': 'Precio',
+            #'gramo': 'Gramos',
+            'precio': 'Precio x 1000 cm3',
         }
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
             'codigo': forms.TextInput(attrs={'class': 'form-control'}),
             'marca': forms.TextInput(attrs={'class': 'form-control'}),
-            'gramo': forms.NumberInput(attrs={'class': 'form-control'}),
+            #'gramo': forms.NumberInput(attrs={'class': 'form-control'}),
             'precio': forms.NumberInput(attrs={'class': 'form-control'}),
         }
 
@@ -86,4 +86,26 @@ class ManoForm(forms.ModelForm):
             'concepto': forms.TextInput(attrs={'class': 'form-control'}),
             'precio': forms.NumberInput(attrs={'class': 'form-control'}),
         }
+
+
+class TratamientoForm(forms.ModelForm):
+    
+    class Meta:
+        model = Tratamiento
+        fields = [
+            'nombre',
+            'concepto',
+            'precio',
+        ]
+        labels = {
+            'nombre': 'Nombre',
+            'concepto': 'Descripcion',
+            'precio': 'Precio',
+        }
+        widgets = {
+            'nombre': forms.TextInput( attrs={'class': 'form-control'}),
+            'concepto': forms.TextInput(attrs={'class': 'form-control'}),
+            'precio': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
+
     

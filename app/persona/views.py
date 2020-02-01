@@ -113,7 +113,7 @@ class ClienteCrear(CreateView):
     template_name = 'cliente/cliente_form.html'
     form_class = CLienteForm
     second_form_class = PersonaForm
-    success_url = reverse_lazy('listar_venta')
+    success_url = reverse_lazy('cliente_listar')
 
     def get_context_data(self, **kwargs):
         context = super(ClienteCrear, self).get_context_data(**kwargs)

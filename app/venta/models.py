@@ -1,6 +1,6 @@
 from django.db import models
 from app.persona.models import Empleado, Cliente
-from app.salonCorte.models import Corte, Tintura, Mano, Cabina
+from app.salonCorte.models import Corte, Tintura, Mano, Tratamiento
 import time
 from datetime import date
 
@@ -17,9 +17,10 @@ class Venta(models.Model):
      cliente = models.ForeignKey(Cliente, null=True, on_delete=models.CASCADE)
      corte = models.ForeignKey(Corte, null=True,blank=True, on_delete=models.CASCADE)
      tintura = models.ForeignKey(Tintura, null=True, blank=True, on_delete=models.CASCADE)
+     cant_tintura=  models.IntegerField( null=True, blank=True, default= 0)
+     tratamiento = models.ForeignKey(Tratamiento, null=True, blank=True, on_delete=models.CASCADE)
      mano=  models.ForeignKey(Mano, null=True, blank=True, on_delete=models.CASCADE)
-     cabina=  models.ForeignKey(Cabina, null=True, blank=True, on_delete=models.CASCADE)
-     tipoPago = models.CharField(choices=TIPOPAGO_CHOICES,null=True,blank=True, max_length=50)
+     tipoPago = models.CharField(choices=TIPOPAGO_CHOICES,null=True,blank=True, max_length=50, default="Efectivo")
      fecha = models.DateField(default=day)
      pagoPeluquero= models.FloatField(null=True, blank=True)
      pagoPeluqueroCalculo= models.FloatField(null=True, blank=True)

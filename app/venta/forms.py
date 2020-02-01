@@ -5,22 +5,26 @@ class VentaForm(forms.ModelForm):
     class Meta:
         model= Venta        
         fields = [
+            'cliente', 
             'peluquero',            
             'corte',
             'tintura',
+            'cant_tintura',
+            'tratamiento',
             'mano',
-            'cabina',
             'tipoPago',
             'fecha',
             
         ]
         labels = {
+            'cliente':'Cliente',
             'peluquero':'Peluqueros',
             'cliente':'',
             'corte':'Tipo de Cortes',
             'tintura': 'Colores',
+            'cant_tintura':'Cantidad de Tintura',
+            'tratamiento': 'Tratamiento',
             'mano':'Belleza de manos',
-            'cabina':'Cabina Solar',
             'tipoPago':'Tipo de Pago',
             'fecha':'',
             'pagoPeluquero':'',
@@ -28,12 +32,13 @@ class VentaForm(forms.ModelForm):
             'total':'',
         }
         widgets = {
-            'peluquero': forms.Select(attrs={'class': 'form-control'}),
             'cliente': forms.Select(attrs={'class': 'form-control'}),
+            'peluquero': forms.Select(attrs={'class': 'form-control'}),
             'corte': forms.Select(attrs={'class': 'form-control', 'require': 'false'}),
             'tintura': forms.Select(attrs={'class': 'form-control', 'require': 'false'}),
+            'cant_tintura': forms.NumberInput(attrs={'class': 'form-control', 'require': 'false'}), 
+            'tratamiento': forms.Select(attrs={'class': 'form-control', 'require': 'false'}),
             'mano': forms.Select(attrs={'class': 'form-control', 'require': 'false'}), 
-            'cabina': forms.Select(attrs={'class': 'form-control', 'require': 'false'}), 
             'tipoPago': forms.Select(attrs={'class': 'form-control', 'require': 'false'}),
             'fecha': forms.DateInput(attrs={'class': 'form-control', 'require': 'false', 'readonly':'readonly'}),
             'pagoPeluquero': forms.NumberInput(attrs={'class': 'form-control', 'require': 'false'}),

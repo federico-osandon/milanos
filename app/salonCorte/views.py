@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from app.salonCorte.models import Corte, Tintura, Mano
-from app.salonCorte.forms import CorteForm, TinturaForm, ManoForm
+from app.salonCorte.models import Corte, Tintura, Mano, Tratamiento
+from app.salonCorte.forms import CorteForm, TinturaForm, ManoForm, TratamientoForm
 
 # Create your views here.
 
@@ -20,6 +20,20 @@ class CorteCrear(CreateView):
     model = Corte
     form_class = CorteForm
     template_name = 'corte/corte_form.html'
+    success_url = reverse_lazy('corte_listar')
+
+
+
+class CorteModificar(UpdateView):
+    model = Corte
+    form_class = CorteForm
+    template_name = 'corte/corte_form.html'
+    success_url = reverse_lazy('corte_listar')
+
+
+class CorteBorrar(DeleteView):
+    model = Corte    
+    template_name = 'corte/corte_eliminar.html'
     success_url = reverse_lazy('corte_listar')
 
  
@@ -42,7 +56,7 @@ class ColorUpdate(UpdateView):
     success_url = reverse_lazy('color_listar')
       
 
-class ColorEliminar(ListView):
+class ColorEliminar(DeleteView):
     model = Tintura
     template_name = 'color/color_delete.html'
     success_url= reverse_lazy('color_listar')
@@ -73,3 +87,30 @@ class ManoDelete(DeleteView):
     model = Mano
     template_name = 'mano/mano_delete.html'
     success_url = reverse_lazy('mano_listar')
+
+
+class TratamientosListar(ListView):
+    model = Tratamiento
+    template_name = 'tratamiento/tratamiento_listar.html'
+    paginate_by = 10
+
+
+class TratamientosCrear(CreateView):
+    model = Tratamiento
+    form_class = TratamientoForm
+    template_name = 'tratamiento/tratamiento_form.html'
+    success_url = reverse_lazy('tratamiento_listar')
+
+
+
+class TratamientosModificar(UpdateView):
+    model = Tratamiento
+    form_class = TratamientoForm
+    template_name = 'tratamiento/tratamiento_form.html'
+    success_url = reverse_lazy('tratamiento_listar')
+
+
+class TratamientosBorrar(DeleteView):
+    model = Tratamiento    
+    template_name = 'tratamiento/tratamiento_eliminar.html'
+    success_url = reverse_lazy('tratamiento_listar')

@@ -7,7 +7,7 @@ from app.venta.forms import VentaForm, SueldoForm
 
 from app.persona.models import Cliente, Empleado, Persona
 from django.utils.timezone import datetime
-from app.salonCorte.models import Corte, Tintura, Mano, Cabina
+from app.salonCorte.models import Corte, Tintura, Mano, Cabina, Tratamiento
 
 
 
@@ -30,59 +30,54 @@ class VentaList(ListView):
     paginate_by = 10
 
 class VentaUpdate(UpdateView):
-    model = Venta
-    
+    model = Venta    
     form_class = VentaForm
     template_name = 'venta/venta_update.html'
-    success_url = reverse_lazy('listar_venta')
+    success_url = reverse_lazy('venta_crear')   
 
-    
-
-    def post(self, request, *args, **kwargs):
-        
+    def post(self, request, *args, **kwargs):        
         precioTintura = 0
         precioCorte = 0
         precioMano = 0
-        precioCabina = 0
+        precioTratamiento = 0
+        #precioCabina = 0
         
         self.object = self.get_object
         pk = self.kwargs['pk']
-        venta = self.model.objects.get(id=pk)
-        print(venta.cliente)
-        
-        
-        form = self.form_class(request.POST, instance=venta)
-        
-        post = form.save(commit=False)
-        
-        
-        
+        venta = self.model.objects.get(id=pk)       
+        form = self.form_class(request.POST, instance=venta)        
+        post = form.save(commit=False)       
 
         if post.tintura is not None:
             tintura = Tintura.objects.get(nombre=post.tintura)
-            precioTintura = tintura.precio
+            precioTintura = (tintura.precio * post.cant_tintura)/1000
+            
         if post.corte is not None:
             corte = Corte.objects.get(nombre=post.corte)
             precioCorte = corte.precio
+
         if post.mano is not None:
             mano = Mano.objects.get(concepto=post.mano)
             precioMano = mano.precio
-        if post.cabina is not None:
-            cabina = Cabina.objects.get(concepto=post.cabina)
-            precioCabina = cabina.precio
+
+        if post.tratamiento is not None:            
+            tratamiento = Tratamiento.objects.get(nombre=post.tratamiento)            
+            precioTratamiento = tratamiento.precio
+
+        #if post.cabina is not None:
+        #    cabina = Cabina.objects.get(concepto=post.cabina)
+        #    precioCabina = cabina.precio
+
         if post.tipoPago is not None:
             if post.tipoPago == "Credito":
-                post.total = precioTintura + precioCorte + precioMano + precioCabina + \
-                    (((precioTintura + precioCorte + precioMano + precioCabina) * 5) / 100)
+                post.total = precioTintura + precioCorte + precioMano + precioTratamiento + (((precioTintura + precioCorte + precioMano + precioTratamiento) * 5) / 100)
             if post.tipoPago == 'Cuenta':
-                post.total = precioTintura + precioCorte + precioMano + precioCabina + \
-                    ((precioTintura + precioCorte +
-                      precioMano + precioCabina) * 10) / 100
+                post.total = precioTintura + precioCorte + precioMano + precioTratamiento + (((precioTintura + precioCorte + precioMano + precioTratamiento) * 10) / 100)
             if (post.tipoPago == 'Debito') or (post.tipoPago == 'Efectivo'):
-                post.total = precioTintura + precioCorte + precioMano + precioCabina
+                post.total = precioTintura + precioCorte + precioMano + precioTratamiento
         else:
-            post.total = precioTintura + precioCorte + precioMano + precioCabina
-        post.pagoPeluquero = (((precioTintura + precioCorte) * 65) / 100)
+            post.total = precioTintura + precioCorte + precioMano + precioTratamiento
+        post.pagoPeluquero = (((precioTintura + precioCorte + precioTratamiento) * 65) / 100)
         post.pagoPeluqueroCalculo = post.pagoPeluquero
         if form.is_valid():
             solicitud = form.save()
@@ -96,7 +91,7 @@ class VentaDelete(DeleteView):
     model = Venta
     form_class = VentaForm
     template_name = 'venta/venta_delete.html'
-    success_url = reverse_lazy('listar_venta')
+    success_url = reverse_lazy('venta_crear')
 
 
 class VentaCrear(CreateView, ListView):
@@ -105,14 +100,13 @@ class VentaCrear(CreateView, ListView):
     form_class = VentaForm
     second_model = Cliente
     template_name = 'venta/ventaList.html'
-    success_url = reverse_lazy('listar_venta')
+    success_url = reverse_lazy('venta_crear')
     #paginate_by= 2
     ordering = ['id']
     
     def get_context_data(self , **kwargs):
-       context = super(VentaCrear, self).get_context_data(**kwargs)
-       pk = self.kwargs.get('pk', 0)
-       cliente = self.second_model.objects.get(id=pk)
+       context = super(VentaCrear, self).get_context_data(**kwargs)       
+       cliente = self.second_model.objects.all()
        #data = {'cliente': cliente}
        form = self.form_class()
        context['cliente']=cliente       
@@ -122,50 +116,55 @@ class VentaCrear(CreateView, ListView):
        
     def get_queryset(self, **kwargs):
         queryset = super(VentaCrear, self).get_queryset()
-        fecha = datetime.now()
-        pk = self.kwargs.get('pk', 0)
-        cliente = self.second_model.objects.get(id=pk)       
+        fecha = datetime.now()           
         if self.request.GET.get('fecha'):            
             fecha_str = self.request.GET.get('fecha')
             fecha = datetime.strptime(fecha_str, '%d-%m-%Y')
-        return queryset.filter(fecha=fecha)
-
+        return queryset.filter(fecha=fecha)    
     
-    
-    def post(self, request, *args, **kwargs):
-        pk = self.kwargs.get('pk', 0)
-        cliente = self.second_model.objects.get(id=pk)        
+    def post(self, request, *args, **kwargs):               
         precioTintura = 0
         precioCorte = 0
         precioMano = 0
-        precioCabina = 0        
+        precioTratamiento = 0
+        
+        #precioCabina = 0        
         self.object = self.get_object        
         form = self.form_class(request.POST)
-        post = form.save(commit=False)
-        post.cliente = cliente
+        post = form.save(commit=False)        
                 
         if post.tintura is not None:            
             tintura = Tintura.objects.get(nombre=post.tintura)
-            precioTintura = tintura.precio
+            precioTintura = (tintura.precio * post.cant_tintura)/1000
+
         if post.corte is not None:            
             corte = Corte.objects.get(nombre=post.corte)            
-            precioCorte = corte.precio        
+            precioCorte = corte.precio  
+
         if post.mano is not None:            
             mano = Mano.objects.get(concepto=post.mano)            
             precioMano = mano.precio
-        if post.cabina is not None:            
-            cabina = Cabina.objects.get(concepto=post.cabina)            
-            precioCabina = cabina.precio    
+
+        if post.tratamiento is not None:            
+            tratamiento = Tratamiento.objects.get(nombre=post.tratamiento)            
+            precioTratamiento = tratamiento.precio
+
+        
+
+        #if post.cabina is not None:            
+        #    cabina = Cabina.objects.get(concepto=post.cabina)            
+        #    precioCabina = cabina.precio   
+        #  
         if post.tipoPago is not None:
             if post.tipoPago == "Credito":                
-                post.total = precioTintura + precioCorte + precioMano + precioCabina + (((precioTintura + precioCorte+ precioMano + precioCabina ) * 5) / 100)
+                post.total = precioTintura + precioCorte + precioMano + precioTratamiento + (((precioTintura + precioCorte + precioMano + precioTratamiento) * 5) / 100)
             if post.tipoPago == 'Cuenta':
-                post.total = precioTintura + precioCorte + precioMano + precioCabina + ((precioTintura + precioCorte + precioMano + precioCabina) * 10) / 100                
+                post.total = precioTintura + precioCorte + precioMano + precioTratamiento + (((precioTintura + precioCorte + precioMano + precioTratamiento) * 10) / 100)                
             if (post.tipoPago == 'Debito') or (post.tipoPago == 'Efectivo'):
-                post.total = precioTintura + precioCorte + precioMano + precioCabina            
+                post.total = precioTintura + precioCorte + precioMano + precioTratamiento           
         else:            
-            post.total = precioTintura + precioCorte + precioMano + precioCabina 
-        post.pagoPeluquero = (((precioTintura + precioCorte) * 65) / 100)
+            post.total = precioTintura + precioCorte + precioMano + precioTratamiento
+        post.pagoPeluquero = (((precioTintura + precioCorte + precioTratamiento) * 65) / 100)
         post.pagoPeluqueroCalculo = post.pagoPeluquero
         if form.is_valid():
             solicitud = form.save()            
@@ -178,8 +177,8 @@ class VentaListar(ListView):
     model = Venta
     form_class = VentaForm
     second_model = Cliente
-    template_name = 'venta/ventaList_nueva.html'
-    success_url = reverse_lazy('listar_venta')
+    template_name = 'venta/ventaList.html'
+    success_url = reverse_lazy('listar_crear')
     #paginate_by= 2
     ordering = ['id'] 
     

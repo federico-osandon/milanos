@@ -127,5 +127,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-LOGIN_REDIRECT_URL = reverse_lazy('listar_venta')
+LOGIN_REDIRECT_URL = reverse_lazy('venta_crear')
 LOGOUT_REDIRECT_URL = reverse_lazy('login')
+
